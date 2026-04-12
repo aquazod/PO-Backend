@@ -34,8 +34,6 @@ Backend/
 - **Web Scraping**: Python Scrapy spider that crawls property listings
 - **REST API**: Express.js API for querying listings with filtering and pagination
 - **Filtering**: Price range, date range, location, and keyword search
-- **Pagination**: Support for `per_page` and `pg` parameters
-- **CORS**: Configured for cross-origin requests from frontend applications
 
 ## Prerequisites
 
@@ -182,10 +180,3 @@ Modify `scraper/scraper/items.py` to add or change scraped item fields.
 ### Python
 - `scrapy` - Web scraping framework
 
-## License
-
-ISC
-
-## Author
-
-Palm Outsourcing
