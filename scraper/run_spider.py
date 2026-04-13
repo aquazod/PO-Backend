@@ -11,40 +11,50 @@ from datetime import datetime, timezone, timedelta
 
 
 DATA_DIR = Path(__file__).parent / "data"
-LOGS_DIR = Path(__file__).parent / "scraper" / "logs"
 LISTINGS_FILE = DATA_DIR / "listings.json"
+TEMP_OUTPUT_FILE = DATA_DIR / "listings_temp.json"
 META_FILE = DATA_DIR / "meta.json"
+
+LOGS_DIR = Path(__file__).parent / "scraper" / "logs"
+
+SPIDER_PATH = Path(__file__).parent / "scraper" / "spiders" / "properties_spider.py"
+
+WORKING_DIR = Path(__file__).parent
 
 script_start_time = datetime.now()
 
 def run_spider():
     """Run the spider using scrapy runspider command."""
-    spider_path = Path(__file__).parent / "scraper" / "spiders" / "properties_spider.py"
-    output_file = Path(__file__).parent / "data" / "listings.json"
-    working_dir = Path(__file__).parent
+    output_file = LISTINGS_FILE
     
     # create the data directory if it doesn't exist
     output_file.parent.mkdir(parents=True, exist_ok=True)
     
     # run scrapy command through a subprocess
+    # Use uppercase -O to overwrite the temp file
     cmd = [
         "scrapy",
         "runspider",
-        str(spider_path),
-        "-O", # capital O to override current listings.json
-        str(output_file),
+        str(SPIDER_PATH),
+        "-O", 
+        str(TEMP_OUTPUT_FILE),
     ]
     
     print(f"Running: {' '.join(cmd)}")
-    result = subprocess.run(cmd, cwd=str(working_dir))
+    result = subprocess.run(cmd, cwd=str(WORKING_DIR))
     
     if result.returncode == 0:
-        # clear current listings.json
+        # Spider completed successfully, now replace the actual file
         print("Spider completed successfully")
+        # Replace the original file with the temp file only after spider finishes
+        TEMP_OUTPUT_FILE.replace(output_file) # source.replace(target)
         update_meta_json()
         return True
     else:
         print(f"Spider failed with exit code {result.returncode}")
+        # Clean up temp file if it exists
+        if TEMP_OUTPUT_FILE.exists():
+            TEMP_OUTPUT_FILE.unlink()
         return False
 
 
