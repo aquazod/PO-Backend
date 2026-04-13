@@ -48,6 +48,7 @@ Backend/
 - Duplicated properties detection: Used properties links as unique identifiers to ensure deduplication
 - Relative Links: Added HTTP protocol + base_url
 - network error/timeouts: applied retry mechanism
+- HTML tag containing the date has Tailwind CSS classes: search within the property text nodes for "Added on" (date prefix)
 - listings.json is empty once the scrapper is triggered: outputs the scrapping results into a temp_listings.json file and then copy the content into listings.json
 
 ## Installation
