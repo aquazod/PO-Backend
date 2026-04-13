@@ -41,6 +41,15 @@ Backend/
 - Python (v3.8+) and pip
 - Scrapy framework
 
+
+## Edge Cases & handling
+
+- Missing Fields while scrapping: If title -> skip property, otherwise set as None
+- Duplicated properties detection: Used properties links as unique identifiers to ensure deduplication
+- Relative Links: Added HTTP protocol + base_url
+- network error/timeouts: applied retry mechanism
+- listings.json is empty once the scrapper is triggered: outputs the scrapping results into a temp_listings.json file and then copy the content into listings.json
+
 ## Installation
 
 ### Node.js Setup

@@ -92,7 +92,7 @@ def make_absolute_url(url):
     if parsed.scheme and parsed.netloc:
         return url
     
-    return urljoin(BASE_URL, url)
+    return urljoin("https://repossessedhousesforsale.com", url)
 
 def strip_pg_param(url: str) -> str:
     """Remove the ?pg= navigation parameter from a property link."""
