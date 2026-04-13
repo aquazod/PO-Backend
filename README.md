@@ -1,4 +1,4 @@
-# Palm Outsourcing Backend
+# Task Backend
 
 A full-stack application for scraping and managing property listings, with a Node.js REST API backend and Python web scraper.
 
